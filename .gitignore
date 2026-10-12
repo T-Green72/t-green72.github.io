@@ -1,0 +1,13 @@
+# Tooling and local working files (not part of the public repository)
+node_modules/
+.claude/
+.mcp.json
+skills-lock.json
+.impeccable/
+screenshots/
+PRODUCT.md
+.DS_Store
+
+# Supplied photos deliberately not used on the site
+media-source/2026-steklotekh-printed-collage.jpg
+media-source/2026-steklotekh-banner.jpg

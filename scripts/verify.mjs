@@ -37,7 +37,9 @@ async function open(browser, viewport, opts = {}) {
   page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(`console: ${m.text()}`); });
   page.on('response', (r) => { if (r.status() >= 400) errors.push(`HTTP ${r.status()} ${r.url()}`); });
-  await page.goto(BASE, { waitUntil: 'networkidle' });
+  // Remote sites get more time; a slow connection should not fail the run
+  await page.goto(BASE, { waitUntil: 'load', timeout: 90000 });
+  await page.waitForLoadState('networkidle', { timeout: 20000 }).catch(() => {});
   await page.evaluate(() => document.fonts.ready);
   return { context, page, errors };
 }
